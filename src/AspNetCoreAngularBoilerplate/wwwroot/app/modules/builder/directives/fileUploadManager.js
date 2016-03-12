@@ -1,10 +1,24 @@
 ﻿define(['config',
-    'vendor/angular',
     'jquery',
     'jqueryui',
+    'vendor/angular',
     'modules/builder/module',
-    'vendor/text!modules/builder/templates/fileUploadManager.html'],
-function (config, angular, $, ui, rootModule, fileUploadManagerHtml) {
+    'vendor/text!modules/builder/templates/fileUploadManager.html',
+    'tmpl',
+    'load-image',
+    'load-image-meta',
+    'load-image-exif',
+    'canvas-to-blob',
+    'jquery.iframe-transport',
+    'jquery.fileupload',
+    'jquery.fileupload-process',
+    'jquery.fileupload-image',
+    'jquery.fileupload-audio',
+    'jquery.fileupload-video',
+    'jquery.fileupload-validate',
+    'jquery.fileupload-ui'
+],
+function (config, $, ui, angular, rootModule, fileUploadManagerHtml) {
 
     function UploadManager($rootScope, $http) {
         return {
@@ -41,7 +55,7 @@ function (config, angular, $, ui, rootModule, fileUploadManagerHtml) {
                 //    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                 //});
 
-                self.API_URL = "/admin/handlers/modulefilehandler.ashx";
+                self.API_URL = "/home/upload";
                 self.fileUploadForm = $('#fileupload');
                 self.fileUploadForm.fileupload({
                     url: self.API_URL,
