@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - WebApplication1</title>
+        <link rel="stylesheet" href="~/app/vendor/bootstrap/dist/css/bootstrap.min.css" />
+        <link href="~/app/vendor/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
+        <link href="~/app/vendor/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
+    <body ng-controller="BuilderCtrl">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand" ng-bind="title"></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>
+        <script>
+            var require = {
+                "baseUrl": "/app/",
+                "urlArgs": "bust=" + (new Date()).getTime(),
+                "shim": {
+                    jquery: {
+                        exports: "$"
+                    },
+                    underscore: {
+                        exports: "_"
+                    },
+                    "jqueryui": { "exports": "$", "deps": ["jquery"] },
+                    "vendor/angular": { "exports": "angular", "deps": ["underscore", "jquery"] },
+                    "vendor/angular-sanitize": { "deps": ["vendor/angular"] },
+                    "vendor/angular-animate": { "deps": ["vendor/angular"] },
+                    "vendor/angular-route": { "deps": ["vendor/angular"] },
+                    "vendor/bindonce": { "deps": ["vendor/angular"] }
+                },
+                "paths": {
+                    "jquery": "vendor/jquery/dist/jquery.min",
+                    "jqueryui": "vendor/jquery-ui/jquery-ui",
+                    "underscore": "vendor/underscore/underscore-min",
+                    "bootstrap": "vendor/bootstrap/dist/js/bootstrap.min",
+                    "vendor/angular": "vendor/angular/angular",
+                    "vendor/angular-sanitize": "vendor/angular-sanitize/angular-sanitize",
+                    "vendor/angular-animate": "vendor/angular-animate/angular-animate",
+                    "vendor/angular-route": "vendor/angular-route/angular-route",
+                    "vendor/bindonce": "vendor/angular-bindonce/bindonce",
+                    "vendor/text": "vendor/requirejs-text/text"
+                },
+                "waitSeconds": 0
+            };
+
+        </script>
+        <environment names="Development,Staging,Production">
+            <script src="~/app/vendor/requirejs/require.js" asp-append-version="true"></script>
+        </environment>
+        <script>
+            define('config', {
+                "settings": {
+                    "title": "@ViewBag.Title"
+                },
+            });
+
+            require(["jquery"], function ($) {
+                require(["modules/builder/main"]);
+            });
+        </script>
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

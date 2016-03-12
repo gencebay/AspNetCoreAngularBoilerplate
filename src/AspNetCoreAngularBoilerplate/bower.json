@@ -1,0 +1,20 @@
+{
+  "name": "ASP.NET",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.5",
+    "jquery": "2.1.4",
+    "jquery-validation": "1.14.0",
+    "jquery-validation-unobtrusive": "3.2.4",
+    "underscore": "1.5.2",
+    "jquery-file-upload": "9.11.2",
+    "requirejs": "2.1.20",
+    "requirejs-text":"2.0.14",
+    "jquery-ui": "1.11.4",
+    "angular": "1.4.6",
+    "angular-sanitize": "1.4.6",
+    "angular-animate": "1.4.6",
+    "angular-bindonce": "0.3.3",
+    "requirejs-domready": "2.0.1"
+  }
+}
