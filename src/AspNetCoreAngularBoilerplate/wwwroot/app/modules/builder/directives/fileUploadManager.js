@@ -21,14 +21,14 @@ function (config, angular, $, ui, rootModule, fileUploadManagerHtml) {
                 var self = this;
                 self.data = {};
 
-                $('#fileupload').fileupload({
-                    dataType: 'json',
-                    done: function (e, data) {
-                        $.each(data.result.files, function (index, file) {
-                            $('<p/>').text(file.name).appendTo(document.body);
-                        });
-                    }
-                });
+                //$('#fileupload').fileupload({
+                //    dataType: 'json',
+                //    done: function (e, data) {
+                //        $.each(data.result.files, function (index, file) {
+                //            $('<p/>').text(file.name).appendTo(document.body);
+                //        });
+                //    }
+                //});
 
                 //$('#fileupload').fileupload('option', {
                 //    url: '//jquery-file-upload.appspot.com/',
@@ -41,14 +41,14 @@ function (config, angular, $, ui, rootModule, fileUploadManagerHtml) {
                 //    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
                 //});
 
-                //self.API_URL = "/admin/handlers/modulefilehandler.ashx";
-                //self.fileUploadForm = $('#fileupload');
-                //self.fileUploadForm.fileupload({
-                //    url: self.API_URL,
-                //    formData: { templateId: 1 }
-                //}).bind('fileuploadadded', function (e, data) { })
-                // .bind('fileuploaddone', function (e, data) { })
-                // .bind('fileuploadstop', function (e) { });
+                self.API_URL = "/admin/handlers/modulefilehandler.ashx";
+                self.fileUploadForm = $('#fileupload');
+                self.fileUploadForm.fileupload({
+                    url: self.API_URL,
+                    formData: { templateId: 1 }
+                }).bind('fileuploadadded', function (e, data) { })
+                 .bind('fileuploaddone', function (e, data) { })
+                 .bind('fileuploadstop', function (e) { });
             }
         };
     }

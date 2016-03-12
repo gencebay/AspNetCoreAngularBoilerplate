@@ -28,6 +28,7 @@
                 </div>
             </div>
         </div>
+        <br />
         <div class="container">
             @RenderBody()
         </div>
@@ -47,11 +48,13 @@
                     "vendor/angular-sanitize": { "deps": ["vendor/angular"] },
                     "vendor/angular-animate": { "deps": ["vendor/angular"] },
                     "vendor/angular-route": { "deps": ["vendor/angular"] },
-                    "vendor/bindonce": { "deps": ["vendor/angular"] }
+                    "vendor/bindonce": { "deps": ["vendor/angular"] }, 
+                    "jquery.fileupload": { "deps": ["jquery", "tmpl", "load-image", "jquery.ui.widget", "canvas-to-blob", "bootstrap", "jquery.iframe-transport" ]}
                 },
                 "paths": {
                     "jquery": "vendor/jquery/dist/jquery.min",
                     "jqueryui": "vendor/jquery-ui/jquery-ui",
+                    "jquery.ui.widget": "vendor/jquery-file-upload/js/vendor/jquery.ui.widget",
                     "underscore": "vendor/underscore/underscore-min",
                     "bootstrap": "vendor/bootstrap/dist/js/bootstrap.min",
                     "vendor/angular": "vendor/angular/angular",
@@ -59,15 +62,27 @@
                     "vendor/angular-animate": "vendor/angular-animate/angular-animate",
                     "vendor/angular-route": "vendor/angular-route/angular-route",
                     "vendor/bindonce": "vendor/angular-bindonce/bindonce",
-                    "vendor/text": "vendor/requirejs-text/text"
+                    "vendor/text": "vendor/requirejs-text/text",
+                    "tmpl": "vendor/blueimp-tmpl/js/tmpl",
+                    "load-image": "vendor/blueimp-load-image/js/load-image.all.min",
+                    "load-image-meta": "vendor/blueimp-load-image/js/load-image.all.min",
+                    "load-image-exif": "vendor/blueimp-load-image/js/load-image.all.min",
+                    "load-image-ios": "vendor/blueimp-load-image/js/load-image.all.min",
+                    "canvas-to-blob": "vendor/blueimp-canvas-to-blob/js/canvas-to-blob",
+                    "jquery.iframe-transport": "vendor/jquery-file-upload/js/jquery.iframe-transport",
+                    "jquery.fileupload": "vendor/jquery-file-upload/js/jquery.fileupload",
+                    "jquery.fileupload-process": "vendor/jquery-file-upload/js/jquery.fileupload-process",
+                    "jquery.fileupload-image": "vendor/jquery-file-upload/js/jquery.fileupload-image",
+                    "jquery.fileupload-audio": "vendor/jquery-file-upload/js/jquery.fileupload-audio",
+                    "jquery.fileupload-video": "vendor/jquery-file-upload/js/jquery.fileupload-video",
+                    "jquery.fileupload-validate": "vendor/jquery-file-upload/js/jquery.fileupload-validate",
+                    "jquery.fileupload-ui": "vendor/jquery-file-upload/js/jquery.fileupload-ui",
                 },
                 "waitSeconds": 0
             };
 
         </script>
-        <environment names="Development,Staging,Production">
-            <script src="~/app/vendor/requirejs/require.js" asp-append-version="true"></script>
-        </environment>
+        <script src="~/app/vendor/requirejs/require.js"></script>
         <script>
             define('config', {
                 "settings": {
