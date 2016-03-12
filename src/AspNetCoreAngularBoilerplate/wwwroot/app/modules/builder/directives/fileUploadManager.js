@@ -34,28 +34,7 @@ function (config, $, ui, angular, rootModule, fileUploadManagerHtml) {
             link: function link(scope, element, attrs, formCtrl) {
                 var self = this;
                 self.data = {};
-
-                //$('#fileupload').fileupload({
-                //    dataType: 'json',
-                //    done: function (e, data) {
-                //        $.each(data.result.files, function (index, file) {
-                //            $('<p/>').text(file.name).appendTo(document.body);
-                //        });
-                //    }
-                //});
-
-                //$('#fileupload').fileupload('option', {
-                //    url: '//jquery-file-upload.appspot.com/',
-                //    // Enable image resizing, except for Android and Opera,
-                //    // which actually support image resizing, but fail to
-                //    // send Blob objects via XHR requests:
-                //    disableImageResize: /Android(?!.*Chrome)|Opera/
-                //        .test(window.navigator.userAgent),
-                //    maxFileSize: 999000,
-                //    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-                //});
-
-                self.API_URL = "/home/upload";
+                self.API_URL = "/home/UploadFilesAjax";
                 self.fileUploadForm = $('#fileupload');
                 self.fileUploadForm.fileupload({
                     url: self.API_URL,
@@ -63,6 +42,19 @@ function (config, $, ui, angular, rootModule, fileUploadManagerHtml) {
                 }).bind('fileuploadadded', function (e, data) { })
                  .bind('fileuploaddone', function (e, data) { })
                  .bind('fileuploadstop', function (e) { });
+
+                // get existing files
+                $.ajax({
+                    url: '/home/GetUploadedFiles',
+                    dataType: 'json',
+                    context: self.fileUploadForm[0]
+                }).always(function () {
+                    $(this).removeClass('fileupload-processing');
+                }).done(function (result) {
+                    console.log(result);
+                    $(this).fileupload('option', 'done')
+                        .call(this, $.Event('done'), { result: result });
+                });
             }
         };
     }
