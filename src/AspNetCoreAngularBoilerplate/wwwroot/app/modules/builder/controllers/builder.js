@@ -1,5 +1,4 @@
-﻿define([
-    'config',
+﻿define(['config',
     'vendor/angular',
     'jquery',
     'modules/builder/module',

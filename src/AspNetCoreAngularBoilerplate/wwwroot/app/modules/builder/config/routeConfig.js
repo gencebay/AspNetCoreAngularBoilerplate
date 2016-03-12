@@ -1,16 +1,15 @@
-﻿define([
-    'config',
+﻿define(['config',
     'vendor/angular',
     'modules/builder/module'],
-function (config, angular, emailbuilder) {
+function (config, angular, builder) {
 
     function RouteConfig($routeProvider) {
 
         $routeProvider
-            .when("/welcome", { action: "firstrun" })
+            .when("/welcome", { action: "welcome" })
             .otherwise({ redirectTo: "/default" });
 
     };
 
-    emailbuilder.config(['$routeProvider', RouteConfig]);
+    builder.config(['$routeProvider', RouteConfig]);
 });
