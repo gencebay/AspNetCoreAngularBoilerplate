@@ -1,7 +1,7 @@
 ﻿using AspNetCoreAngularBoilerplate.Models;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.IO;
@@ -62,7 +62,10 @@ namespace AspNetCoreAngularBoilerplate.Controllers
                 if (file.Length > 0)
                 {
                     var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    await file.SaveAsAsync(Path.Combine(UploadsPath, fileName));
+                    using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
+                    {
+                        await file.CopyToAsync(fs);
+                    }
                 }
                 return View();
             }
@@ -71,7 +74,7 @@ namespace AspNetCoreAngularBoilerplate.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadFilesAjax()
+        public async Task<IActionResult> UploadFilesAjax()
         {
             long size = 0;
             var files = Request.Form.Files;
@@ -83,7 +86,11 @@ namespace AspNetCoreAngularBoilerplate.Controllers
                                 .Trim('"');
                 filename = UploadsPath + $@"\{filename}";
                 size += file.Length;
-                file.SaveAs(filename);
+
+                using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate))
+                {
+                    await file.CopyToAsync(fs);
+                }
             }
             
             return Json(new { files = GetFiles() });

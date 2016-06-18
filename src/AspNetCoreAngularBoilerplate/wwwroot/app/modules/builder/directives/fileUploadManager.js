@@ -22,7 +22,7 @@ function (config, $, ui, angular, rootModule, fileUploadManagerHtml) {
 
     function UploadManager($rootScope, $http) {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             scope: {
                 sections: '=',
                 designs: '=',

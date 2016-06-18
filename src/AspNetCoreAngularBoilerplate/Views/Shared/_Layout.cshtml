@@ -4,33 +4,23 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - WebApplication1</title>
-        <link rel="stylesheet" href="~/app/vendor/bootstrap/dist/css/bootstrap.min.css" />
+        <link href="~/app/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"  />
+        <link href="~/app/vendor/spinkit/spinkit.css" rel="stylesheet" />
         <link href="~/app/vendor/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
         <link href="~/app/vendor/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </head>
     <body ng-controller="BuilderCtrl">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand" ng-bind="title"></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    </ul>
-                </div>
+        <div class="app-container">
+            <div class="sk-folding-cube builder-loading" ng-hide="builderState">
+                <div class="sk-cube1 sk-cube"></div>
+                <div class="sk-cube2 sk-cube"></div>
+                <div class="sk-cube4 sk-cube"></div>
+                <div class="sk-cube3 sk-cube"></div>
             </div>
-        </div>
-        <br />
-        <div class="container">
-            @RenderBody()
+            <div id="builder-wrapper" ng-cloak>
+                @RenderBody()
+            </div>
         </div>
         <script>
             var require = {
@@ -86,13 +76,18 @@
         <script>
             define('config', {
                 "settings": {
-                    "title": "@ViewBag.Title"
+                    "title": "@ViewBag.Title",
+                    "isUiMetricsEnabled": true
                 },
             });
 
-            require(["jquery"], function ($) {
-                require(["modules/builder/main"]);
-            });
+            setTimeout(function () {
+                // demonstrate long running initial loading process
+                require(["jquery"], function ($) {
+                    require(["modules/builder/main"]);
+                });
+            }, 2000);
+
         </script>
         @RenderSection("scripts", required: false)
     </body>
